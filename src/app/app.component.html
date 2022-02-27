@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
   <div class="row">
-    <div class="col col-auto me-auto">
+    <div class="col-12 col-auto me-auto">
       <app-phone-search
         [phoneName]="phoneName"
         (myChangePhoneName)="phoneName = $event.value"
@@ -10,7 +10,7 @@
       <app-phone-form></app-phone-form>
     </div>
 
-    <div class="col col-auto">
+    <div class="col-12 col-auto">
       <app-phones [phoneName]="phoneName"></app-phones>
     </div>
   </div>

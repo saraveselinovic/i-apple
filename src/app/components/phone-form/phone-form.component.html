@@ -1,74 +1,72 @@
 <div class="mb-3">
-  <form>
+
+  <form [formGroup]="myFormGroup" (ngSubmit)="onSubmit()">
+
     <div class="mb-3">
       <label for="phoneId" class="form-label">Id</label>
-      <input
-        type="text"
-        class="form-control"
-        id="phoneId"
-        name="phoneIdName"
-        [(ngModel)]="id"
-        [disabled]="!this.isNew"
-      />
+      <input type="text" class="form-control" id="phoneId" formControlName="id" [ngClass]="validateId()">
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('id').hasError('required') ? 'Id is required':'' }}
+      </div>
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('id').hasError('minlength') ? 'Min length is 1':'' }}
+      </div>
+      <div class="valid-feedback">
+        Correct!
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="phoneModel" class="form-label">Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="phoneModel"
-        name="phoneModelName"
-        [(ngModel)]="name"
-      />
+      <input type="text" class="form-control" id="phoneModel" formControlName="name" [ngClass]="validateName()">
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('name').hasError('required') ? 'Name is required':'' }}
+      </div>
+      <div class="invalid-feedback">
+        {{ notValidName() }}
+      </div>
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('name').hasError('maxlength') ? 'Max length is 20':'' }}
+      </div>
+      <div class="valid-feedback">
+        Correct!
+      </div>
     </div>
 
     <div class="mb-3 d-none">
       <label for="imgUrl" class="form-label">Image Url</label>
-      <input
-        type="text"
-        class="form-control"
-        id="imgUrl"
-        name="phoneImgUrlName"
-        [(ngModel)]="imageUrl"
-      />
+      <input type="text" class="form-control" id="imgUrl" formControlName="imageUrl">
     </div>
 
     <div class="mb-3">
       <label for="phonePrice" class="form-label">Price</label>
-      <input
-        type="text"
-        class="form-control"
-        id="phonePrice"
-        name="phonePriceName"
-        [(ngModel)]="price"
-      />
+      <input type="text" class="form-control" id="phonePrice" formControlName="price" [ngClass]="validatePrice()">
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('price').hasError('required') ? 'Price is required':'' }}
+      </div>
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('price').hasError('maxlength') ? 'Max length is 5':'' }}
+      </div>
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('price').hasError('minlength') ? 'Min length is 1':'' }}
+      </div>
+      <div class="invalid-feedback">
+        {{ myFormGroup.get('price').hasError('pattern') ? 'Must be a number':'' }}
+      </div>
+      <div class="valid-feedback">
+        Correct!
+      </div>
     </div>
 
     <div class="row mt-4">
       <div class="col-auto me-auto">
-        <button
-          type="button"
-          class="btn btn-warning"
-          (click)="clearState()"
-          [hidden]="!(this.id || this.name || this.price)"
-        >
-          Clear
-        </button>
+        <button type="button" class="btn btn-warning" (click)="clearState()">Clear</button>
       </div>
       <div class="col-auto">
-        <app-phone-add
-          [isNew]="this.isNew"
-          [phone]="{
-            id: this.id,
-            name: this.name,
-            imageUrl: this.imageUrl,
-            price: this.price
-          }"
-          (onAction)="onSubmit()"
-        >
-        </app-phone-add>
+        <input type="button" (click)="onSubmit()" [value]="!this.isNew ? 'Edit selected phone':'Add a phone'"
+          [className]="!this.isNew ? 'btn btn-secondary':'btn btn-success'" />
       </div>
     </div>
+
   </form>
 </div>

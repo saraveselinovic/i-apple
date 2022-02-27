@@ -5,10 +5,9 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { PhonesComponent } from './components/phones/phones.component';
 import { PhoneFormComponent } from './components/phone-form/phone-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipePipe } from './helpers/filter-pipe.pipe';
 import { PhoneSearchComponent } from './components/phone-search/phone-search.component';
-import { PhoneAddComponent } from './components/phone-add/phone-add.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +16,12 @@ import { PhoneAddComponent } from './components/phone-add/phone-add.component';
     PhonesComponent,
     PhoneFormComponent,
     FilterPipePipe,
-    PhoneSearchComponent,
-    PhoneAddComponent
+    PhoneSearchComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

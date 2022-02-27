@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Phone } from '../../models/phone';
 import { PhoneService } from '../../services/phone.service';
 
@@ -8,15 +9,11 @@ import { PhoneService } from '../../services/phone.service';
   styleUrls: ['./phone-form.component.css']
 })
 export class PhoneFormComponent implements OnInit {
-
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-
   isNew: boolean = true;
 
-  constructor(private phoneService: PhoneService) { }
+  myFormGroup: FormGroup;
+
+  constructor(private phoneService: PhoneService, private myFormBuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -28,11 +25,44 @@ export class PhoneFormComponent implements OnInit {
         // something was clicked
         this.isNew = false;
 
-        this.id = phone.id;
-        this.name = phone.name;
-        this.imageUrl = phone.imageUrl;
-        this.price = phone.price;
+        this.initMyFormValues(phone.id, phone.name, phone.imageUrl, phone.price);
       }
+    });
+
+    this.clearState();
+  }
+
+  initMyValidation() {
+    this.myFormGroup = this.myFormBuilder.group({
+      id: [{ value: '', disabled: !this.isNew }, [Validators.required, Validators.minLength(1)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(20),
+          Validators.minLength(6)
+        ],
+      ],
+      imageUrl: '',
+      price: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^\d+$/),
+          Validators.maxLength(5),
+          Validators.minLength(1)
+        ],
+      ],
+    });
+  }
+
+  initMyFormValues(id: number, name: string, imageUrl: string, price: number) {
+
+    this.myFormGroup?.setValue({
+      id: id,
+      name: name,
+      imageUrl: imageUrl,
+      price: price
     });
   }
 
@@ -41,26 +71,85 @@ export class PhoneFormComponent implements OnInit {
     if (this.isNew) {
 
       // add phone
-      this.phoneService.addPhone({ id: this.id, name: this.name, imageUrl: 'assets/img/1.jpg', price: this.price });
+
+      const newPhone: Phone = {
+        id: this.myFormGroup.get('id').value,
+        name: this.myFormGroup.get('name').value,
+        imageUrl: 'assets/img/1.jpg',
+        price: this.myFormGroup.get('price').value,
+      };
+
+      this.phoneService.addPhone(newPhone);
 
     } else {
 
       // update phone
-      this.phoneService.updatePhone({ id: this.id, name: this.name, imageUrl: this.imageUrl, price: this.price });
+
+      const updPhone: Phone = {
+        id: this.myFormGroup.get('id').value,
+        name: this.myFormGroup.get('name').value,
+        imageUrl: this.myFormGroup.get('imageUrl').value,
+        price: this.myFormGroup.get('price').value
+      }
+
+      this.phoneService.updatePhone(updPhone);
     }
 
     this.clearState();
   }
 
   clearState() {
+
     this.isNew = true;
 
-    this.id = null;
-    this.name = null;
-    this.imageUrl = null;
-    this.price = null;
+    this.initMyFormValues(null, null, null, null);
 
     this.phoneService.clearState();
+
+    // init again form
+    this.initMyValidation();
   }
+
+
+  validateId() {
+
+    const input = this.myFormGroup.get('id');
+
+    return ((input.touched || input.dirty) && input.hasError('required') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.hasError('minlength') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.valid ? 'is-valid' : '');
+  }
+
+  validateName() {
+
+    const input = this.myFormGroup.get('name');
+
+    return ((input.touched || input.dirty) && input.hasError('required') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.hasError('minlength') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.hasError('maxlength') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.valid ? 'is-valid' : '');
+  }
+
+  validatePrice() {
+
+    const input = this.myFormGroup.get('price');
+
+    return ((input.touched || input.dirty) && input.hasError('required') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.hasError('minlength') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.hasError('maxlength') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.hasError('pattern') ? 'is-invalid' : '')
+      || ((input.touched || input.dirty) && input.valid ? 'is-valid' : '');
+  }
+
+  notValidName() {
+
+    if (this.myFormGroup.get('name').hasError('minlength')) {
+      console.log('Atribute \'Name\' ne moze biti manji od 6 karaktera!');
+      return 'Min length is 6';
+    } else {
+      return '';
+    }
+  }
+
 
 }
