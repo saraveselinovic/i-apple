@@ -1,0 +1,23 @@
+<div class="row row-cols-xxl-4 row-cols-3">
+  <div class="col my-3" *ngFor="let phone of phones | filterPipe: phoneName">
+    <div class="card phone">
+      <img
+        src="{{ phone.imageUrl }}"
+        class="card-img-top img-fluid img-thumbnail"
+      />
+      <div class="card-body">
+        <a href="#">
+          <h5 class="card-title">{{ phone.name }}</h5>
+        </a>
+        <div class="row mt-5">
+          <div class="col-auto me-auto">
+            <p class="text-primary disabled">
+              {{ phone.price | currency: "EUR" }}
+            </p>
+          </div>
+          <div class="col-auto d-flex"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

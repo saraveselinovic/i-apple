@@ -1,0 +1,47 @@
+<div class="mb-3">
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="phoneId" class="form-label">Id</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phoneId"
+        name="phoneIdName"
+        [(ngModel)]="id"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="phoneModel" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phoneModel"
+        name="phoneModelName"
+        [(ngModel)]="name"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="phonePrice" class="form-label">Price</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phonePrice"
+        name="phonePriceName"
+        [(ngModel)]="price"
+      />
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-auto me-auto">
+        <button type="button" class="btn btn-warning" (click)="clearState()">
+          Clear
+        </button>
+      </div>
+      <div class="col-auto">
+        <input type="submit" [value]="'Add a phone'" class="btn btn-success" />
+      </div>
+    </div>
+  </form>
+</div>
