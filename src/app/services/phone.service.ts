@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Phone } from '../models/phone';
 
 @Injectable({
@@ -8,6 +8,19 @@ import { Phone } from '../models/phone';
 export class PhoneService {
 
   phones: Phone[];
+
+  // for select phone and populate form
+  private phoneSource = new BehaviorSubject<Phone>({
+    id: null,
+    name: null,
+    imageUrl: null,
+    price: null
+  });
+  selectedPhone: Observable<Phone> = this.phoneSource.asObservable();
+
+  // for clear form
+  private stateSource = new BehaviorSubject<boolean>(true);
+  stateClear = this.stateSource.asObservable();
 
   constructor() {
 
@@ -25,5 +38,30 @@ export class PhoneService {
 
   addPhone(phone: Phone) {
     this.phones.push(phone);
+  }
+
+  updatePhone(phone: Phone) {
+    this.phones.forEach((curr, i) => {
+      if (phone.id === curr.id) {
+        this.phones.splice(i, 1);
+      }
+    });
+    this.phones.unshift(phone);
+  }
+
+  deletePhone(phone: Phone) {
+    this.phones.forEach((curr, i) => {
+      if (phone.id === curr.id) {
+        this.phones.splice(i, 1);
+      }
+    });
+  }
+
+  setFormPhone(phone: Phone) {
+    this.phoneSource.next(phone);
+  }
+
+  clearState() {
+    this.stateSource.next(true);
   }
 }

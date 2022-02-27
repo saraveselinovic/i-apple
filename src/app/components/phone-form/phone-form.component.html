@@ -1,5 +1,5 @@
 <div class="mb-3">
-  <form (ngSubmit)="onSubmit()">
+  <form>
     <div class="mb-3">
       <label for="phoneId" class="form-label">Id</label>
       <input
@@ -8,6 +8,7 @@
         id="phoneId"
         name="phoneIdName"
         [(ngModel)]="id"
+        [disabled]="!this.isNew"
       />
     </div>
 
@@ -19,6 +20,17 @@
         id="phoneModel"
         name="phoneModelName"
         [(ngModel)]="name"
+      />
+    </div>
+
+    <div class="mb-3 d-none">
+      <label for="imgUrl" class="form-label">Image Url</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imgUrl"
+        name="phoneImgUrlName"
+        [(ngModel)]="imageUrl"
       />
     </div>
 
@@ -35,12 +47,27 @@
 
     <div class="row mt-4">
       <div class="col-auto me-auto">
-        <button type="button" class="btn btn-warning" (click)="clearState()">
+        <button
+          type="button"
+          class="btn btn-warning"
+          (click)="clearState()"
+          [hidden]="!(this.id || this.name || this.price)"
+        >
           Clear
         </button>
       </div>
       <div class="col-auto">
-        <input type="submit" [value]="'Add a phone'" class="btn btn-success" />
+        <app-phone-add
+          [isNew]="this.isNew"
+          [phone]="{
+            id: this.id,
+            name: this.name,
+            imageUrl: this.imageUrl,
+            price: this.price
+          }"
+          (onAction)="onSubmit()"
+        >
+        </app-phone-add>
       </div>
     </div>
   </form>

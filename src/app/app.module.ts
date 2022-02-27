@@ -8,6 +8,7 @@ import { PhoneFormComponent } from './components/phone-form/phone-form.component
 import { FormsModule } from '@angular/forms';
 import { FilterPipePipe } from './helpers/filter-pipe.pipe';
 import { PhoneSearchComponent } from './components/phone-search/phone-search.component';
+import { PhoneAddComponent } from './components/phone-add/phone-add.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PhoneSearchComponent } from './components/phone-search/phone-search.com
     PhonesComponent,
     PhoneFormComponent,
     FilterPipePipe,
-    PhoneSearchComponent
+    PhoneSearchComponent,
+    PhoneAddComponent
   ],
   imports: [
     BrowserModule,
