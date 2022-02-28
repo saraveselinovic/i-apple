@@ -64,4 +64,11 @@ export class PhoneService {
   clearState() {
     this.stateSource.next(true);
   }
+
+  /**
+   * Quantity instead of numberOfNights
+   */
+  getPrice(quantity: number, phone: Phone) {
+    return quantity * phone.price;
+  }
 }

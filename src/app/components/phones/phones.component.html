@@ -9,6 +9,7 @@
         <a href="#" (click)="onSelect(phone)">
           <h5 class="card-title">{{ phone.name }}</h5>
         </a>
+
         <div class="row mt-5">
           <div class="col-auto me-auto">
             <button class="btn btn-success disabled">
@@ -19,6 +20,12 @@
             <button class="btn btn-danger" (click)="onDelete(phone)">
               <i class="fa fa-trash"></i>
             </button>
+          </div>
+        </div>
+
+        <div class="row mt-2 d-block">
+          <div class="col-auto mx-auto d-block">
+            <button class="btn btn-info" (click)="buy(phone)">Kupi</button>
           </div>
         </div>
       </div>

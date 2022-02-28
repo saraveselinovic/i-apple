@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Phone } from '../../models/phone';
 import { PhoneService } from '../../services/phone.service';
 
@@ -14,6 +14,8 @@ export class PhonesComponent implements OnInit {
   @Input() phoneName: string; // for search (filter pipe)
 
   selectedPhone: Phone; // for populating form
+
+  @Output() cleanSearchAfterDelete: EventEmitter<any> = new EventEmitter();
 
   constructor(private phoneService: PhoneService) { }
 
@@ -42,8 +44,16 @@ export class PhonesComponent implements OnInit {
 
     if (confirm('Are you sure?')) {
 
+      this.cleanSearchAfterDelete.emit();
+
       this.phoneService.deletePhone(phone);
     }
+  }
+
+  buy(phone: Phone) {
+
+    const quantity: number = +prompt('Quantity:');
+    console.log(`Total price: ${this.phoneService.getPrice(quantity, phone)}`);
   }
 
 }
