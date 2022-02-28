@@ -1,12 +1,12 @@
-<div class="row row-cols-xxl-4 row-cols-3">
-  <div class="col my-3" *ngFor="let phone of phones | filterPipe: phoneName">
+<div class="row row-cols-xxl-6 row-cols-5">
+  <div class="col my-3" *ngPhoneFor="let phone of phones">
     <div class="card phone">
       <img
         src="{{ phone.imageUrl }}"
         class="card-img-top img-fluid img-thumbnail"
       />
       <div class="card-body">
-        <a href="#" (click)="onSelect(phone)">
+        <a href="#">
           <h5 class="card-title">{{ phone.name }}</h5>
         </a>
 
@@ -19,15 +19,13 @@
             </button>
           </div>
           <div class="col-auto d-flex">
-            <button class="btn btn-danger" (click)="onDelete(phone)">
-              <i class="fa fa-trash"></i>
-            </button>
+            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
           </div>
         </div>
 
         <div class="row mt-2 d-block">
           <div class="col-auto mx-auto d-block">
-            <button class="btn btn-info" (click)="buy(phone)">Kupi</button>
+            <button class="btn btn-info">Kupi</button>
           </div>
         </div>
       </div>
