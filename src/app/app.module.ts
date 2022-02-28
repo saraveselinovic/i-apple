@@ -9,6 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterPipePipe } from './helpers/filter-pipe.pipe';
 import { PhoneSearchComponent } from './components/phone-search/phone-search.component';
 
+import { appStoreProviders } from './app.store';
+import { HttpClientModule } from '@angular/common/http';
+import { PhoneService } from './services/phone.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +25,10 @@ import { PhoneSearchComponent } from './components/phone-search/phone-search.com
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [appStoreProviders, PhoneService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
