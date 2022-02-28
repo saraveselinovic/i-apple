@@ -28,6 +28,7 @@ export class PhonesComponent implements OnInit {
       }
     });
 
+    // Pregled soba kroz poglede
     this.phoneService.getPhones().subscribe((phones) => {
       this.phones = phones;
     });

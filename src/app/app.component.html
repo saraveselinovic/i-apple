@@ -2,7 +2,7 @@
 
 <div class="container mt-5">
   <div class="row">
-    <div class="col-12 me-auto">
+    <div class="col-12 col-auto me-auto">
       <app-phone-search
         [phoneName]="this.phoneName"
         (myChangePhoneName)="this.phoneName = $event.value"
@@ -11,7 +11,7 @@
       <app-phone-form></app-phone-form>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 col-auto">
       <app-phones
         [phoneName]="this.phoneName"
         (cleanSearchAfterDelete)="this.phoneName = null"

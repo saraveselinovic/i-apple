@@ -32,6 +32,7 @@ export class PhoneService {
     ];
   }
 
+  // Pregled soba kroz poglede
   getPhones(): Observable<Phone[]> {
     return of(this.phones);
   }

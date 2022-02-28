@@ -12,12 +12,12 @@
 
         <div class="row mt-5">
           <div class="col-auto me-auto">
-            <button class="btn btn-success disabled">
+            <button class="btn btn-outline-success disabled">
               {{ phone.price | currency: "EUR" }}
             </button>
           </div>
           <div class="col-auto d-flex">
-            <button class="btn btn-danger" (click)="onDelete(phone)">
+            <button class="btn btn-outline-danger" (click)="onDelete(phone)">
               <i class="fa fa-trash"></i>
             </button>
           </div>
@@ -25,7 +25,9 @@
 
         <div class="row mt-2 d-block">
           <div class="col-auto mx-auto d-block">
-            <button class="btn btn-info" (click)="buy(phone)">Kupi</button>
+            <button class="btn btn-info" (click)="buy(phone)">
+              Kupi <i class="fa fa-shopping-basket"></i>
+            </button>
           </div>
         </div>
       </div>

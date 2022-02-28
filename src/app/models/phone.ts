@@ -1,3 +1,6 @@
+/*
+  Korišćeni entiteti predstavljeni preko modela.
+*/
 export interface Phone {
 
   id?: number;
